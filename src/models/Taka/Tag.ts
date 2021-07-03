@@ -1,4 +1,5 @@
 import { Document, Model, model, Schema } from "mongoose";
+import connTaka from "../../../config/taka/database";
 
 /**
  * Interface to model the User Schema for TypeScript.
@@ -15,6 +16,9 @@ const takaTagSchema: Schema = new Schema({
   },
 });
 
-const TakaTag: Model<ITakaTag> = model("TakaTag", takaTagSchema);
+const TakaTag: Model<ITakaTag> = connTaka.model<ITakaTag>(
+  "TakaTag",
+  takaTagSchema
+);
 
 export default TakaTag;

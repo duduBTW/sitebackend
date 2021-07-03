@@ -1,5 +1,6 @@
 import { Document, Model, model, Schema } from "mongoose";
 import { ITakaTag } from "./Tag";
+import connTaka from "../../../config/taka/database";
 
 /**
  * Interface to model the Profile Schema for TypeScript.
@@ -31,6 +32,9 @@ const takaSubTagSchema: Schema = new Schema({
   },
 });
 
-const TakaSubTag: Model<ITakaSubTag> = model("TakaSubTag", takaSubTagSchema);
+const TakaSubTag: Model<ITakaSubTag> = connTaka.model<ITakaSubTag>(
+  "TakaSubTag",
+  takaSubTagSchema
+);
 
 export default TakaSubTag;
