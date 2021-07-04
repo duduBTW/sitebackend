@@ -182,6 +182,16 @@ router.delete("/artist/:id", async (req: Request, res: Response) => {
       _id: req.params.id,
     });
 
+    var artsToDelete = await FenekoArt.find({
+      artist: req.params.id,
+    });
+
+    for (let i = 0; i < artsToDelete.length; i++) {
+      await FenekoArt.deleteOne({
+        _id: artsToDelete[i]._id,
+      });
+    }
+
     res.status(200).send();
   } catch (err) {
     console.error(err.message);
