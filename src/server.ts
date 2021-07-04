@@ -8,10 +8,10 @@ import profile from "./routes/api/profile";
 import feneko from "./routes/api/feneko";
 import taka from "./routes/api/taka";
 
+require("dotenv").config();
 const app = express();
 
 // Set up .env config
-require("dotenv").config();
 
 // Connect to MongoDB
 connectDB();

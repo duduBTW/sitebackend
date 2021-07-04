@@ -30,6 +30,10 @@ const takaSubTagSchema: Schema = new Schema({
   descricao: {
     type: String,
   },
+  open: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 const TakaSubTag: Model<ITakaSubTag> = connTaka.model<ITakaSubTag>(
