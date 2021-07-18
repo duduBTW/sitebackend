@@ -3,6 +3,7 @@ import connTaka from "../../../config/taka/database";
 
 export const contractSchema = new Schema({
   term: String,
+  termEn: String,
   dateCreated: Date,
 });
 

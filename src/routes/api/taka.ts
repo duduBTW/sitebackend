@@ -415,6 +415,7 @@ router.put("/tags/:id", async (req: Request, res: Response) => {
 router.post(
   "/contract",
   [check("term", "term obrigatório").exists().isString()],
+  [check("termEn", "termEn obrigatório").exists().isString()],
   async (req: Request, res: Response) => {
     try {
       const errors = validationResult(req);
@@ -426,6 +427,7 @@ router.post(
 
       const newContract = new TakaContract({
         term: req.body.term,
+        termEn: req.body.termEn,
         dateCreated: new Date(),
       });
 
@@ -441,7 +443,9 @@ router.post(
 
 router.get("/contract", async (req: Request, res: Response) => {
   try {
-    const data = await TakaContract.find({}, "dateCreated");
+    const data = await TakaContract.find({}, "dateCreated").sort({
+      dateCreated: -1,
+    });
 
     res.status(200).json(data);
   } catch (err) {
