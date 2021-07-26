@@ -8,6 +8,7 @@ export const contractSchema = new Schema({
 });
 
 export const userSchema = new Schema({
+  nickname: String,
   name: String,
   birth: String,
   ip: String,
