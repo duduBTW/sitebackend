@@ -9,7 +9,8 @@ import { IFeneko } from ".";
  */
 export interface IFenekoArte extends Document {
   artist: IFeneko["_id"];
-  type: "video" | "image";
+  type: "video" | "image" | "iframe";
+  miniature: string;
   url: string;
   title: string;
   largura: string;
@@ -22,6 +23,9 @@ const fenekoArtSchema: Schema = new Schema({
     ref: "Feneko",
   },
   type: {
+    type: String,
+  },
+  miniature: {
     type: String,
   },
   url: {
