@@ -3,6 +3,7 @@ import { check, validationResult } from "express-validator/check";
 import HttpStatusCodes from "http-status-codes";
 import FenekoTag, { IFenekoTag } from "../../models/Feneko/Tags";
 import FenekoTipoPedido, {
+  IFenekoPrecoFront,
   IFenekoTipoPedido,
 } from "../../models/Feneko/TipoPedido";
 import Feneko, { IFeneko } from "../../models/Feneko/Feneko";
@@ -27,9 +28,21 @@ router.get("/itemPedido/:id", async (req: Request, res: Response) => {
   try {
     const fenekoTipoPedodp: IFenekoTipoPedido = await FenekoTipoPedido.findById(
       req.params.id
-    );
+    ).lean();
 
-    res.status(200).json(fenekoTipoPedodp);
+    let precos: IFenekoPrecoFront = {};
+
+    if (fenekoTipoPedodp.preco) {
+      fenekoTipoPedodp.preco.forEach((field) => console.log(field.fim));
+
+      for (let i = 0; i < fenekoTipoPedodp?.preco.length || 0; i++) {
+        const field = fenekoTipoPedodp?.preco[i];
+
+        precos[`${i}`] = { imagem: field.imagem };
+      }
+    }
+
+    res.status(200).json({ ...fenekoTipoPedodp, preco: precos });
   } catch (err) {
     console.error(err.message);
     res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");

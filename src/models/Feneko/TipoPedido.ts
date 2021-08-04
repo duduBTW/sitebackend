@@ -1,6 +1,18 @@
 import { Document, Model, model, Schema } from "mongoose";
 import { IFenekoTag } from "./Tags";
 
+export type IFenekoPrecoApi = {
+  inicio: number;
+  fim: number;
+  imagem: string;
+};
+
+export type IFenekoPrecoFront = {
+  [k: string]: {
+    imagem: string;
+  };
+};
+
 /**
  * Interface to model the Feneko Tag for TypeScript.
  * @param rag:ref => IFenekoTag._id
@@ -17,6 +29,14 @@ export interface IFenekoTipoPedido extends Document {
   descPt: string;
   descEn: string;
   image: string;
+  showPrice: boolean;
+  preco: IFenekoPrecoApi[];
+  value: number[];
+
+  menEn: number;
+  maxEn: number;
+  menPt: number;
+  maxPt: number;
 }
 
 const fenekoTipoPedidoSchema: Schema = new Schema({
@@ -46,6 +66,16 @@ const fenekoTipoPedidoSchema: Schema = new Schema({
     type: String,
     required: true,
   },
+  showPrice: {
+    type: Boolean,
+    default: false,
+  },
+  value: [Number],
+  preco: [{ inicio: Number, fim: Number, imagem: String }],
+  menEn: Number,
+  maxEn: Number,
+  menPt: Number,
+  maxPt: Number,
 });
 
 const FenekoTipoPedido: Model<IFenekoTipoPedido> = model(
